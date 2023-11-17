@@ -1,0 +1,16 @@
+import http.server
+import socketserver
+
+# Port, auf dem der Server lauschen wird
+port = 8080
+
+# Klasse für die Anfragebehandlung
+class MeinRequestHandler(http.server.SimpleHTTPRequestHandler):
+    pass
+
+# Konfiguration des Servers
+with socketserver.TCPServer(("", port), MeinRequestHandler) as httpd:
+    print(f"Server gestartet auf Port {port}")
+
+    # Lauschen auf Anfragen
+    httpd.serve_forever()
