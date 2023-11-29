@@ -6,7 +6,24 @@ port = 8080
 
 # Klasse für die Anfragebehandlung
 class MeinRequestHandler(http.server.SimpleHTTPRequestHandler):
-    pass
+    def do_GET(self):
+        if self.path == '/videos':
+            # Setze den Header für eine erfolgreiche Anfrage
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+            # Füge den HTML-Code für die Liste der Videos hinzu
+            html_content = "<html><body><h1>YouTube Video List</h1>"
+            for index, video in enumerate(youtube_manager.video_list, start=1):
+                html_content += f"<p>{index}. {video}</p>"
+            html_content += "</body></html>"
+
+            # Sende die HTML-Antwort zurück
+            self.wfile.write(html_content.encode())
+        else:
+            # Lasse die Standardbehandlung für alle anderen Anfragen zu
+            super().do_GET()
 
 # Konfiguration des Servers
 with socketserver.TCPServer(("", port), MeinRequestHandler) as httpd:
