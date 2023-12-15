@@ -1,14 +1,26 @@
-import http.server
-import socketserver
-
-# Port, auf dem der Server lauschen wird
-port = 8080
-
-# Klasse für die Anfragebehandlung
-class MeinRequestHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/videos':
-            # Setze den Header für eine erfolgreiche Anfrage
+        elif self.path == '/videos':
+            # Set the header for a successful request
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
-            self.end_headers(
+            self.end_headers()
+
+            # Send the HTML response
+            html_response = """
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Video List</title>
+                </head>
+                <body>
+                    <h1>List of Videos</h1>
+                    <ul>
+                        <li><a href="/videos/video1">Video 1</a></li>
+                        <li><a href="/videos/video2">Video 2</a></li>
+                        <!-- Add more video links as needed -->
+                    </ul>
+                </body>
+                </html>
+            """
+            
+            # Convert the HTML string to bytes and send it as the response
+            self.wfile.write(html_response.encode('utf-8'))
