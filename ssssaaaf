@@ -11,13 +11,7 @@
         elif self.path == '/videos':
             # Set the header for a successful request
             self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-     
-        elif self.path == '/videos':
-            # Set the header for a successful request
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-     
+            self.send_header('
         elif self.path == '/videos':
             # Set the header for a successful request
             self.send_response(200)
